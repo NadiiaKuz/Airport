@@ -5,16 +5,6 @@ namespace Airport.Models
     //Console.Writeline is used as an abstraction/substitution for real display
     static class FlightBoard
     {
-        private const int TimeColumn = 16;
-        private const int DestinationColumn = 16;
-        private const int DepartureColumn = 16;
-        private const int RouteNumberColumn = 10;
-        private const int AirlineColumn = 14;
-        private const int StatusColumn = 26;
-        private const int GateColumn = 8;
-
-        private const int Width = 97;
-
         public static void DisplayDepartures(List<Route> routes, DateTime date)
         {
             routes = routes.OrderBy(x => x.DepartureTime).ToList();
@@ -34,24 +24,8 @@ namespace Airport.Models
             Console.WriteLine(divider);
         }
 
-        private static string GetDeparturesRecord(Route route)
-        {
-            var record = "|";
-            record += GetColumn(route.DepartureTime.ToMyTime(), TimeColumn);
-            record += "|";
-            record += GetColumn(route.DestinationPort, DestinationColumn);
-            record += "|";
-            record += GetColumn(route.RouteNumber, RouteNumberColumn);
-            record += "|";
-            record += GetColumn(route.Airline, AirlineColumn);
-            record += "|";
-            record += GetColumn(route.Status.ToString(), StatusColumn);
-            record += "|";
-            record += GetColumn(route.Gate, GateColumn);
-            record += "|";
-
-            return record;
-        }
+        private static string GetDeparturesRecord(Route route) =>
+            $"|{GetColumn(route.DepartureTime.ToMyTime(), 16)}|{GetColumn(route.DestinationPort, 16)}|{GetColumn(route.RouteNumber, 10)}|{GetColumn(route.Airline, 14)}|{GetColumn(route.Status.ToString(), 26)}|{GetColumn(route.Gate, 8)}|";
 
         public static void DisplayArrivals(List<Route> routes, DateTime date)
         {
@@ -72,24 +46,8 @@ namespace Airport.Models
             Console.WriteLine(divider);
         }
 
-        private static string GetArrivalsRecord(Route route)
-        {
-            var record = "|";
-            record += GetColumn(route.ArrivalTime.ToMyTime(), TimeColumn);
-            record += "|";
-            record += GetColumn(route.DeparturePort, DepartureColumn);
-            record += "|";
-            record += GetColumn(route.RouteNumber, RouteNumberColumn);
-            record += "|";
-            record += GetColumn(route.Airline, AirlineColumn);
-            record += "|";
-            record += GetColumn(route.Status.ToString(), StatusColumn);
-            record += "|";
-            record += GetColumn(route.Gate, GateColumn);
-            record += "|";
-
-            return record;
-        }
+        private static string GetArrivalsRecord(Route route) =>
+            $"|{GetColumn(route.ArrivalTime.ToMyTime(), 16)}|{GetColumn(route.DeparturePort, 16)}|{GetColumn(route.RouteNumber, 10)}|{GetColumn(route.Airline, 14)}|{GetColumn(route.Status.ToString(), 26)}|{GetColumn(route.Gate, 8)}|";
 
         public static void DisplayFlights(List<Route> routes, DateTime date)
         {
@@ -123,11 +81,11 @@ namespace Airport.Models
         }
 
         private static string GetDivider() =>
-            "|" + new string('-', Width - 2) + "|";
+            "|" + new string('-', 97 - 2) + "|";
 
         private static string GetHeader(string text)
         {
-            var numberSpaces = Width - text.Length;
+            var numberSpaces = 97 - text.Length;
             var leftSpace = new string('-', (numberSpaces) / 2 - 1);
             var rightSpace = new string('-', (numberSpaces) / 2 - 1);
 

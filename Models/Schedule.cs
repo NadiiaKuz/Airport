@@ -1,53 +1,35 @@
-﻿namespace Airport.Models
+﻿using Airport.Enums;
+
+namespace Airport.Models
 {
     class Schedule
     {
-        private List<Route> _arrivals;
-        private List<Route> _departures;
-        private DateTime _date;
+        private List<Route> _flights;
 
-        public List<Route> Arrivals { get => _arrivals; }
-        public List<Route> Departures { get => _departures; }
-        public DateTime Date { get => _date; }
+        public List<Route> Arrivals { get => _flights.Where(x => x.Type == FlightType.Arrival).ToList(); }
+        public List<Route> Departures { get => _flights.Where(x => x.Type == FlightType.Departure).ToList(); }
+        public DateTime Date { get; private set; }
 
-        public Schedule(List<Route> arrivals, List<Route> departures, DateTime date)
+        public Schedule(List<Route> flights, DateTime date)
         {
-            _arrivals = arrivals;
-            _departures = departures;
-            _date = date;
+            _flights = flights;
+            Date = date;
         }
 
-        #region Arrivals
-        public void AddArrival(Route arrival) =>
-            _arrivals.Add(arrival);
+        public void AddFlight(Route flight) =>
+            _flights.Add(flight);
 
-        public void RemoveArrival(Route arrival) =>
-            _arrivals.Remove(arrival);
+        public void RemoveFlight(Route flight) =>
+            _flights.Remove(flight);
 
-        public void UpdateArrival(Route arrival)
+        public void UpdateFlight(Route flight)
         {
-            var old = _arrivals.First(x => x.RouteNumber == arrival.RouteNumber);
-            _arrivals.Remove(old);
-            _arrivals.Add(arrival);
+            var old = _flights.First(x => x.RouteNumber == flight.RouteNumber);
+            _flights.Remove(old);
+            _flights.Add(flight);
         }
-        #endregion
-
-        #region Departures
-        public void AddDeparture(Route departure) =>
-            _departures.Add(departure);
-
-        public void RemoveDeparture(Route departure) =>
-            _departures.Remove(departure);
-
-        public void UpdateDeparture(Route departure)
-        {
-            var old = _departures.First(x => x.RouteNumber == departure.RouteNumber);
-            _departures.Remove(old);
-            _departures.Add(departure);
-        }
-        #endregion
 
         public List<Route> FindFlight(string destination) =>
-            _departures.Where(x => x.DestinationPort.ToUpper() == destination.ToUpper()).ToList();
+            _flights.Where(x => x.DestinationPort.ToUpper() == destination.ToUpper() && x.Type == FlightType.Departure).ToList();
     }
 }

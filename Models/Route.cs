@@ -1,58 +1,48 @@
-﻿namespace Airport.Models
+﻿using Airport.Enums;
+
+namespace Airport.Models
 {
     class Route
     {
-        private string _routeNumber;
-        private string _destinationPort;
-        private string _departurePort;
-        private DateTime _departureTime;
-        private DateTime _arrivalTime;
-        private string _airline;
-        private string _gate;
-        private Status _status;
-        private Plane _plane;
+        public string RouteNumber { get; private set; }
+        public string DestinationPort { get; private set; }
+        public string DeparturePort { get; private set; }
+        public DateTime DepartureTime { get; private set; }
+        public DateTime ArrivalTime { get; private set; }
+        public string Airline { get; private set; }
+        public string Gate { get; private set; }
+        public Status Status { get; private set; }
+        public Plane Plane { get; private set; }
+        public FlightType Type { get; private set; }
 
-        public string RouteNumber { get => _routeNumber; }
-        public string DestinationPort { get => _destinationPort; }
-        public string DeparturePort { get => _departurePort; }
-        public DateTime DepartureTime { get => _departureTime; }
-        public DateTime ArrivalTime { get => _arrivalTime; }
-        public string Airline { get => _airline; }
-        public string Gate { get => _gate; }
-        public Status Status { get => _status; }
-        public Plane Plane { get => _plane; }
-
-        public Route(string routeNumber, string destinationPort, string departurePort, DateTime departureTime, DateTime arrivalTime, string airline, string gate, Plane plane)
+        public Route(string routeNumber, string destinationPort, string departurePort, DateTime departureTime, DateTime arrivalTime, 
+            string airline, string gate, Plane plane, FlightType type)
         {
-            _routeNumber = routeNumber;
-            _destinationPort = destinationPort;
-            _departurePort = departurePort;
-            _departureTime = departureTime;
-            _arrivalTime = arrivalTime;
-            _airline = airline;
-            _gate = gate;
-            _status = Status.Planned;
-            _plane = plane;
+            RouteNumber = routeNumber;
+            DestinationPort = destinationPort;
+            DeparturePort = departurePort;
+            DepartureTime = departureTime;
+            ArrivalTime = arrivalTime;
+            Airline = airline;
+            Gate = gate;
+            Status = Status.Planned;
+            Plane = plane;
+            Type = type;
         }
 
         public void ChangeDepartureTime(DateTime departureTime) =>
-            _departureTime = departureTime;
+            DepartureTime = departureTime;
 
         public void ChangeArrivalTime(DateTime arrivalTime) =>
-            _arrivalTime = arrivalTime;
+            ArrivalTime = arrivalTime;
 
         public void ChangeGate(string gate) => 
-            _gate = gate;
+            Gate = gate;
         
         public void ChangeStatus(Status status) => 
-            _status = status;
+            Status = status;
 
         public void ChangePlane(Plane plane) => 
-            _plane = plane;
-
-        //public string GetDescription()
-        //{
-
-        //}
+            Plane = plane;
     }
 }
