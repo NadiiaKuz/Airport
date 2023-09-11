@@ -12,11 +12,11 @@ namespace Airport.Models
         public string Airline { get; private set; }
         public string Gate { get; private set; }
         public Status Status { get; private set; }
-        public Plane Plane { get; private set; }
         public FlightType Type { get; private set; }
 
+        //Route can be created only with all parameters to avoid errors and exceptions
         public Route(string routeNumber, string destinationPort, string departurePort, DateTime departureTime, DateTime arrivalTime, 
-            string airline, string gate, Plane plane, FlightType type)
+            string airline, string gate, FlightType type)
         {
             RouteNumber = routeNumber;
             DestinationPort = destinationPort;
@@ -26,7 +26,6 @@ namespace Airport.Models
             Airline = airline;
             Gate = gate;
             Status = Status.Planned;
-            Plane = plane;
             Type = type;
         }
 
@@ -41,8 +40,5 @@ namespace Airport.Models
         
         public void ChangeStatus(Status status) => 
             Status = status;
-
-        public void ChangePlane(Plane plane) => 
-            Plane = plane;
     }
 }
