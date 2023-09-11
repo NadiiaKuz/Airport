@@ -35,13 +35,13 @@ namespace Airport
                 new Route("FR7101", "Katowice", "Oslo", new DateTime(2023, 9, 9, 16, 22, 0), new DateTime(2023, 9, 9, 19, 32, 0), "Ryanair", "G2", planes[9], FlightType.Departure)
             };
 
-            flights[0].ChangeStatus(Status.GateOpened);
-            flights[1].ChangeStatus(Status.Delayed);
-            flights[2].ChangeStatus(Status.Boarding);
-            flights[5].ChangeStatus(Status.PreparingForLanding);
-            flights[6].ChangeStatus(Status.BaggageOnBelt);
-            flights[7].ChangeStatus(Status.Delayed);
-            flights[8].ChangeStatus(Status.Landed);
+            flights[3].ChangeStatus(Status.PreparingForLanding);
+            flights[1].ChangeStatus(Status.BaggageOnBelt);
+            flights[4].ChangeStatus(Status.Delayed);
+            flights[0].ChangeStatus(Status.Landed);
+            flights[6].ChangeStatus(Status.GateOpened);
+            flights[8].ChangeStatus(Status.Delayed);
+            flights[5].ChangeStatus(Status.Boarding);
 
             var schedule = new Schedule(flights, new DateTime(2023, 9, 10));
 
@@ -70,6 +70,7 @@ namespace Airport
                     case 3:
                         Console.Write("Where do you want to flight? ");
 
+                        //test case: Berlin
                         var foundFlights = schedule.FindFlight(Console.ReadLine());
 
                         if (!foundFlights.Any())
