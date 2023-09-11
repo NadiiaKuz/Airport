@@ -29,7 +29,7 @@ namespace Airport
             flights[8].ChangeStatus(Status.Delayed);
             flights[5].ChangeStatus(Status.Boarding);
 
-            var schedule = new Schedule(flights, new DateTime(2023, 9, 10));
+            var schedule = new FlightSchedule(flights, new DateTime(2023, 9, 10));
 
             while (true)
             {

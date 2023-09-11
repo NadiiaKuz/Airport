@@ -2,7 +2,7 @@
 
 namespace Airport.Models
 {
-    class Schedule
+    class FlightSchedule
     {
         private List<Route> _flights;
 
@@ -10,7 +10,7 @@ namespace Airport.Models
         public List<Route> Departures { get => _flights.Where(x => x.Type == FlightType.Departure).ToList(); }
         public DateTime Date { get; private set; }
 
-        public Schedule(List<Route> flights, DateTime date)
+        public FlightSchedule(List<Route> flights, DateTime date)
         {
             _flights = flights;
             Date = date;
