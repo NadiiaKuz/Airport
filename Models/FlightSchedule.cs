@@ -2,34 +2,30 @@
 
 namespace Airport.Models
 {
-    class FlightSchedule
+    static class FlightSchedule
     {
-        private List<Route> _flights;
+        private static List<Route> _flights = new ();
 
-        public List<Route> Arrivals { get => _flights.Where(x => x.Type == FlightType.Arrival).ToList(); }
-        public List<Route> Departures { get => _flights.Where(x => x.Type == FlightType.Departure).ToList(); }
-        public DateTime Date { get; private set; }
+        public static List<Route> Arrivals { get => _flights.Where(x => x.Type == FlightType.Arrival).ToList(); }
+        public static List<Route> Departures { get => _flights.Where(x => x.Type == FlightType.Departure).ToList(); }
 
-        public FlightSchedule(List<Route> flights, DateTime date)
-        {
-            _flights = flights;
-            Date = date;
-        }
-
-        public void AddFlight(Route flight) =>
+        public static void AddFlight(Route flight) =>
             _flights.Add(flight);
 
-        public void RemoveFlight(Route flight) =>
+        public static void AddFlights(List<Route> flights) =>
+            _flights.AddRange(flights);
+
+        public static void RemoveFlight(Route flight) =>
             _flights.Remove(flight);
 
-        public void UpdateFlight(Route flight)
+        public static void UpdateFlight(Route flight)
         {
             var old = _flights.First(x => x.RouteNumber == flight.RouteNumber);
             _flights.Remove(old);
             _flights.Add(flight);
         }
 
-        public List<Route> FindFlight(string destination) =>
+        public static List<Route> FindFlight(string destination) =>
             _flights.Where(x => x.DestinationPort.ToUpper() == destination.ToUpper() && x.Type == FlightType.Departure).ToList();
     }
 }

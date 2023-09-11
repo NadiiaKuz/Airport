@@ -29,7 +29,10 @@ namespace Airport
             flights[8].ChangeStatus(Status.Delayed);
             flights[5].ChangeStatus(Status.Boarding);
 
-            var schedule = new FlightSchedule(flights, new DateTime(2023, 9, 10));
+            FlightSchedule.AddFlights(flights);
+
+            var todayDate = new DateTime(2023, 9, 10);
+
 
             while (true)
             {
@@ -48,21 +51,21 @@ namespace Airport
                 switch(result)
                 {
                     case 1:
-                        FlightBoard.DisplayDepartures(schedule.Departures, schedule.Date);
+                        FlightBoard.DisplayDepartures(FlightSchedule.Departures, todayDate);
                         break;
                     case 2:
-                        FlightBoard.DisplayArrivals(schedule.Arrivals, schedule.Date);
+                        FlightBoard.DisplayArrivals(FlightSchedule.Arrivals, todayDate);
                         break;
                     case 3:
                         Console.Write("Where do you want to flight? ");
 
                         //test case: Berlin
-                        var foundFlights = schedule.FindFlight(Console.ReadLine());
+                        var foundFlights = FlightSchedule.FindFlight(Console.ReadLine());
 
                         if (!foundFlights.Any())
                             Console.WriteLine("No flights found");
                         else
-                            FlightBoard.DisplayFlights(foundFlights, schedule.Date);
+                            FlightBoard.DisplayFlights(foundFlights, todayDate);
 
                         break;
                 }
