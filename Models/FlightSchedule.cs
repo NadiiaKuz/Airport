@@ -4,7 +4,7 @@ namespace Airport.Models
 {
     static class FlightSchedule
     {
-        private static List<Route> _flights;
+        private static readonly List<Route> _flights;
 
         static FlightSchedule() => 
             _flights = new();
@@ -28,7 +28,11 @@ namespace Airport.Models
             _flights.Add(flight);
         }
 
-        public static List<Route> FindFlight(string destination) =>
+        public static List<Route> FindFlightByCity(string destination) =>
             _flights.Where(x => x.DestinationPort.ToUpper() == destination.ToUpper() && x.Type == FlightType.Departure).ToList();
+
+        public static List<Route> FindFlightByNumber(string number) =>
+            _flights.Where(x => x.RouteNumber.ToUpper() == number.ToUpper() && x.Type == FlightType.Departure).ToList();
+
     }
 }
