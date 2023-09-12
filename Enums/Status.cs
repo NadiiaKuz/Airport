@@ -5,11 +5,9 @@
         Planned,
         Delayed,
         Canceled,
-
         PreparingForLanding,
         Landed,
         BaggageOnBelt,
-
         Boarding,
         GateClosed,
         GateOpened,

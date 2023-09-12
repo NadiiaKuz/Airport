@@ -15,8 +15,15 @@ namespace Airport.Models
         public FlightType Type { get; private set; }
 
         //Route can be created only with all parameters to avoid errors and exceptions
-        public Route(string routeNumber, string destinationPort, string departurePort, DateTime departureTime, DateTime arrivalTime, 
-            string airline, string gate, FlightType type)
+        public Route(
+            string routeNumber, 
+            string destinationPort, 
+            string departurePort, 
+            DateTime departureTime, 
+            DateTime arrivalTime, 
+            string airline, 
+            string gate, 
+            FlightType type)
         {
             RouteNumber = routeNumber;
             DestinationPort = destinationPort;

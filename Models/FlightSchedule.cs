@@ -4,7 +4,10 @@ namespace Airport.Models
 {
     static class FlightSchedule
     {
-        private static List<Route> _flights = new ();
+        private static List<Route> _flights;
+
+        static FlightSchedule() => 
+            _flights = new();
 
         public static List<Route> Arrivals { get => _flights.Where(x => x.Type == FlightType.Arrival).ToList(); }
         public static List<Route> Departures { get => _flights.Where(x => x.Type == FlightType.Departure).ToList(); }

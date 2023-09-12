@@ -28,6 +28,7 @@ namespace Airport
             flights[6].ChangeStatus(Status.GateOpened);
             flights[8].ChangeStatus(Status.Delayed);
             flights[5].ChangeStatus(Status.Boarding);
+            flights[7].ChangeStatus(Status.Canceled);
 
             FlightSchedule.AddFlights(flights);
 
@@ -40,6 +41,7 @@ namespace Airport
                 Console.WriteLine("1. Show departures");
                 Console.WriteLine("2. Show arrivals");
                 Console.WriteLine("3. Find flights");
+                Console.WriteLine("4. Exit");
 
                 int result;
 
@@ -68,6 +70,8 @@ namespace Airport
                             FlightBoard.DisplayFlights(foundFlights, todayDate);
 
                         break;
+                    case 4:
+                        return;
                 }
 
                 Console.ReadKey();

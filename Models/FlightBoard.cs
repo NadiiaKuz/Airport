@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using Airport.Enums;
+using System.Globalization;
 
 namespace Airport.Models
 {
@@ -9,7 +10,7 @@ namespace Airport.Models
         {
             routes = routes.OrderBy(x => x.DepartureTime).ToList();
 
-            var header = GetHeader($"Departures ({date.ToMyDate()})");
+            var header = GetHeader($"Departures ({date.ToShortDateString()})");
             var divider = GetDivider();
 
             Console.WriteLine(divider);
@@ -18,10 +19,30 @@ namespace Airport.Models
 
             foreach (var route in routes)
             {
+                GetLineColor(route.Status);
                 Console.WriteLine(GetDeparturesRecord(route));
+                Console.ForegroundColor = ConsoleColor.Gray;
             }
 
             Console.WriteLine(divider);
+        }
+
+        private static void GetLineColor(Status status)
+        {
+            switch (status)
+            {
+                case Status.Canceled:
+                    Console.ForegroundColor= ConsoleColor.Red; 
+                    break;
+                case Status.Delayed:
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+                case Status.Landed:
+                case Status.GateOpened:
+                case Status.Boarding:
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    break;
+            }
         }
 
         private static string GetDeparturesRecord(Route route) =>
@@ -31,7 +52,7 @@ namespace Airport.Models
         {
             routes = routes.OrderBy(x => x.ArrivalTime).ToList();
 
-            var header = GetHeader($"Arrivals ({date.ToMyDate()})");
+            var header = GetHeader($"Arrivals ({date.ToShortDateString()})");
             var divider = GetDivider();
 
             Console.WriteLine(divider);
@@ -40,7 +61,9 @@ namespace Airport.Models
 
             foreach (var route in routes)
             {
+                GetLineColor(route.Status);
                 Console.WriteLine(GetArrivalsRecord(route));
+                Console.ForegroundColor = ConsoleColor.Gray;
             }
 
             Console.WriteLine(divider);
@@ -53,7 +76,7 @@ namespace Airport.Models
         {
             routes = routes.OrderBy(x => x.ArrivalTime).ToList();
 
-            var header = GetHeader($"Flights  ({date.ToMyDate()})");
+            var header = GetHeader($"Flights  ({date.ToShortDateString()})");
             var divider = GetDivider();
 
             Console.WriteLine(divider);
@@ -62,7 +85,9 @@ namespace Airport.Models
 
             foreach (var route in routes)
             {
+                GetLineColor(route.Status);
                 Console.WriteLine(GetDeparturesRecord(route));
+                Console.ForegroundColor = ConsoleColor.Gray;
             }
 
             Console.WriteLine(divider);
@@ -77,11 +102,11 @@ namespace Airport.Models
             if (numberSpaces % 2 == 1)
                 rightSpace += " ";
 
-            return leftSpace + text + rightSpace;
+            return $"{leftSpace}{text}{rightSpace}";
         }
 
         private static string GetDivider() =>
-            "|" + new string('-', 97 - 2) + "|";
+            $"|{new string('-', 97 - 2)}|";
 
         private static string GetHeader(string text)
         {
@@ -92,7 +117,7 @@ namespace Airport.Models
             if (numberSpaces % 2 == 1)
                 rightSpace += "-";
 
-            return "|" + leftSpace + text + rightSpace + "|";
+            return $"|{leftSpace}{text}{rightSpace}|";
         }
 
         private static string ToMyTime(this DateTime date)
@@ -100,8 +125,5 @@ namespace Airport.Models
             var result = date.ToString(new CultureInfo("en-GB"));
             return result.Substring(11, 5);
         }
-
-        private static string ToMyDate(this DateTime date) => 
-            date.ToShortDateString();
     }
 }
