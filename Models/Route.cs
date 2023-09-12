@@ -14,7 +14,6 @@ namespace Airport.Models
         public Status Status { get; private set; }
         public FlightType Type { get; private set; }
 
-        //Route can be created only with all parameters to avoid errors and exceptions
         public Route(
             string routeNumber, 
             string destinationPort, 
